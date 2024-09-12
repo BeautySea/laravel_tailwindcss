@@ -13,6 +13,8 @@ class IntakeController extends Controller
     public function index()
     {
         //
+        $intakes = intake::all();
+        return view('intakes.index', compact('intakes'));
     }
 
     /**
@@ -21,6 +23,7 @@ class IntakeController extends Controller
     public function create()
     {
         //
+        return view('intakes.create');
     }
 
     /**
@@ -29,6 +32,15 @@ class IntakeController extends Controller
     public function store(Request $request)
     {
         //
+        // $request->validate([
+        //     'name' => 'required',
+        //     'email' => 'required|email',
+        // ]);
+
+        intake::create($request->all());
+
+        return redirect()->route('intakes.index')
+                         ->with('success', 'Patient created successfully.');
     }
 
     /**
@@ -37,6 +49,7 @@ class IntakeController extends Controller
     public function show(intake $intake)
     {
         //
+        return view('intakes.show', compact('intake'));
     }
 
     /**
@@ -45,6 +58,7 @@ class IntakeController extends Controller
     public function edit(intake $intake)
     {
         //
+        return view('intakes.edit', compact('intake'));
     }
 
     /**
@@ -53,6 +67,15 @@ class IntakeController extends Controller
     public function update(Request $request, intake $intake)
     {
         //
+        // $request->validate([
+        //     'name' => 'required',
+        //     'email' => 'required|email',
+        // ]);
+
+        $intake->update($request->all());
+
+        return redirect()->route('intakes.index')
+                         ->with('success', 'Patient updated successfully.');
     }
 
     /**
@@ -61,5 +84,9 @@ class IntakeController extends Controller
     public function destroy(intake $intake)
     {
         //
+        $intake->delete();
+
+        return redirect()->route('intakes.index')
+                         ->with('success', 'Patient deleted successfully.');
     }
 }

@@ -13,6 +13,11 @@ return new class extends Migration
     {
         Schema::create('intakes', function (Blueprint $table) {
             $table->id();
+            $table->string('email')->unique();
+            $table->string('energy_level')->nullable();
+            $table->string('stress_level')->nullable();
+            $table->string('body_discomfort')->nullable();
+            $table->float('weight');
             $table->timestamps();
         });
     }

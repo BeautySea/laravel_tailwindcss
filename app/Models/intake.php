@@ -8,4 +8,12 @@ use Illuminate\Database\Eloquent\Model;
 class intake extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        'email',
+        'energy_level',
+        'stress_level',
+        'body_discomfort',
+        'weight',
+    ];
 }

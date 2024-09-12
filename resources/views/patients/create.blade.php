@@ -8,15 +8,6 @@
         <div id="main-content" class="relative w-full h-full overflow-y-auto bg-gray-50 dark:bg-gray-900">
             <section class="my-8 bg-white dark:bg-gray-900">
                 <div class="w-full py-8 px-4 lg:py-16">
-                    @if ($errors->any())
-                        <div class="alert alert-danger">
-                            <ul>
-                                @foreach ($errors->all() as $error)
-                                    <li>{{ $error }}</li>
-                                @endforeach
-                            </ul>
-                        </div>
-                    @endif
                     <h2 class="mb-4 text-xl font-bold text-gray-900 dark:text-white text-center">Add a Patient</h2>
                     <form action="{{ route('patients.store') }}" method="POST">
                         @csrf

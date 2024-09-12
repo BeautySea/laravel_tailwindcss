@@ -534,7 +534,7 @@
                             </div>
                         </div>
                         <div class="flex items-center ml-auto space-x-2 sm:space-x-3">
-                            <a href="{{route('patients.create')}}"
+                            <a href="{{route('intakes.create')}}"
                                 class="inline-flex items-center justify-center w-1/2 px-3 py-2 text-sm font-medium text-center text-white rounded-lg bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 sm:w-auto dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">
                                 <svg class="w-5 h-5 mr-2 -ml-1" fill="currentColor" viewBox="0 0 20 20"
                                     xmlns="http://www.w3.org/2000/svg">
@@ -562,6 +562,15 @@
                 <div class="overflow-x-auto">
                     <div class="inline-block min-w-full align-middle">
                         <div class="overflow-hidden shadow">
+                        @if ($errors->any())
+                        <div class="alert alert-danger">
+                            <ul>
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                          </div>
+                          @endif
                             <table class="min-w-full divide-y divide-gray-200 table-fixed dark:divide-gray-600">
                                 <thead class="bg-gray-100 dark:bg-gray-700">
                                     <tr>
@@ -578,79 +587,23 @@
                                         </th>
                                         <th scope="col"
                                             class="p-4 text-xs font-medium text-left text-gray-500 uppercase dark:text-gray-400">
-                                            Name
-                                        </th>
-                                        <th scope="col"
-                                            class="p-4 text-xs font-medium text-left text-gray-500 uppercase dark:text-gray-400">
-                                            Birth
-                                        </th>
-                                        <th scope="col"
-                                            class="p-4 text-xs font-medium text-left text-gray-500 uppercase dark:text-gray-400">
-                                            Address
-                                        </th>
-                                        <th scope="col"
-                                            class="p-4 text-xs font-medium text-left text-gray-500 uppercase dark:text-gray-400">
-                                            City/State/Zip
-                                        </th>
-                                        <th scope="col"
-                                            class="p-4 text-xs font-medium text-left text-gray-500 uppercase dark:text-gray-400">
-                                            Country
-                                        </th>
-                                        <th scope="col"
-                                            class="p-4 text-xs font-medium text-left text-gray-500 uppercase dark:text-gray-400">
-                                            Phone
-                                        </th>
-                                        <th scope="col"
-                                            class="p-4 text-xs font-medium text-left text-gray-500 uppercase dark:text-gray-400">
                                             Email
                                         </th>
                                         <th scope="col"
                                             class="p-4 text-xs font-medium text-left text-gray-500 uppercase dark:text-gray-400">
-                                            Family information
+                                            Energy Level
                                         </th>
                                         <th scope="col"
                                             class="p-4 text-xs font-medium text-left text-gray-500 uppercase dark:text-gray-400">
-                                            Blood Type
+                                            Stress Level
                                         </th>
                                         <th scope="col"
                                             class="p-4 text-xs font-medium text-left text-gray-500 uppercase dark:text-gray-400">
-                                            Allergies
+                                            Body Discomfort
                                         </th>
                                         <th scope="col"
                                             class="p-4 text-xs font-medium text-left text-gray-500 uppercase dark:text-gray-400">
-                                            Dietary
-                                        </th>
-                                        <th scope="col"
-                                            class="p-4 text-xs font-medium text-left text-gray-500 uppercase dark:text-gray-400">
-                                            Medications
-                                        </th>
-                                        <th scope="col"
-                                            class="p-4 text-xs font-medium text-left text-gray-500 uppercase dark:text-gray-400">
-                                            Medical Conditions
-                                        </th>
-                                        <th scope="col"
-                                            class="p-4 text-xs font-medium text-left text-gray-500 uppercase dark:text-gray-400">
-                                            Surgeries
-                                        </th>
-                                        <th scope="col"
-                                            class="p-4 text-xs font-medium text-left text-gray-500 uppercase dark:text-gray-400">
-                                            Accidents
-                                        </th>
-                                        <th scope="col"
-                                            class="p-4 text-xs font-medium text-left text-gray-500 uppercase dark:text-gray-400">
-                                            FAmily Medical History
-                                        </th>
-                                        <th scope="col"
-                                            class="p-4 text-xs font-medium text-left text-gray-500 uppercase dark:text-gray-400">
-                                            Referal name
-                                        </th>
-                                        <th scope="col"
-                                            class="p-4 text-xs font-medium text-left text-gray-500 uppercase dark:text-gray-400">
-                                            How did you hear about us
-                                        </th>
-                                        <th scope="col"
-                                            class="p-4 text-xs font-medium text-left text-gray-500 uppercase dark:text-gray-400">
-                                            Goal
+                                            Weight
                                         </th>
                                         <th scope="col"
                                             class="p-4 text-xs font-medium text-left text-gray-500 uppercase dark:text-gray-400">
@@ -660,7 +613,7 @@
                                 </thead>
                                 <tbody class="bg-white divide-y divide-gray-200 dark:bg-gray-800 dark:divide-gray-700">
                                     <?php $i = 0;?>
-                                    @foreach ($patients as $patient)
+                                    @foreach ($intakes as $intake)
                                         <?php    $i++;?>
                                         <tr class="hover:bg-gray-100 dark:hover:bg-gray-700">
                                             <td class="w-4 p-4">
@@ -687,64 +640,22 @@
                                             td>
                                             <td
                                                 class="p-4 text-base font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                                {{__($patient->first_name)}}{{__($patient->last_name)}}
+                                                {{__($intake->email)}}
                                             </td>
                                             <td
                                                 class="p-4 text-base font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                                {{$patient->date_birth}}</td>
+                                                {{$intake->energy_level}}</td>
                                             <td
                                                 class="p-4 text-base font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                               {{$patient->address}}</td>
+                                               {{$intake->stress_level}}</td>
                                             <td
                                                 class="p-4 text-base font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                                {{$patient->city}}</td>
+                                                {{$intake->body_discomfort}}</td>
                                             <td
                                                 class="p-4 text-base font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                                {{$patient->country}}</td>
-                                            <td
-                                                class="p-4 text-base font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                                {{$patient->phone}}</td>
-                                            <td
-                                                class="p-4 text-base font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                                {{$patient->email}}</td>
-                                            <td
-                                                class="p-4 text-base font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                                {{$patient->family_info}}</td>
-                                            <td
-                                                class="p-4 text-base font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                                {{$patient->blood_type}}</td>
-                                            <td
-                                                class="p-4 text-base font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                                {{$patient->allergies}}</td>
-                                            <td
-                                                class="p-4 text-base font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                                {{$patient->dietary}}</td>
-                                            <td
-                                                class="p-4 text-base font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                                {{$patient->medications}}</td>
-                                            <td
-                                                class="p-4 text-base font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                                {{$patient->medical_cond}}</td>
-                                            <td
-                                                class="p-4 text-base font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                                {{$patient->surgeries}}</td>
-                                                <td
-                                                class="p-4 text-base font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                                {{$patient->accidents}}</td>
-                                            <td
-                                                class="p-4 text-base font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                                {{$patient->fm_history}}</td>
-                                            <td
-                                                class="p-4 text-base font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                                {{$patient->ref_name}}</td>
-                                            <td
-                                                class="p-4 text-base font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                                {{$patient->hdyh_about_us}}</td>
-                                            <td
-                                                class="p-4 text-base font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                                {{$patient->goal}}</td>
+                                                {{$intake->weight}}</td>
                                             <td class="p-4 space-x-2 whitespace-nowrap">
-                                                <a href="{{route('patients.edit', $patient->id)}}"
+                                                <a href="{{route('intakes.edit', $intake->id)}}"
                                                     data-modal-target="edit-user-modal" data-modal-toggle="edit-user-modal"
                                                     class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white rounded-lg bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">
                                                     <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20"
@@ -758,7 +669,7 @@
                                                     </svg>
                                                     Edit user
                                                 </a>
-                                                <form action="{{ route('patients.destroy', $patient->id) }}" method="POST"
+                                                <form action="{{ route('intakes.destroy', $intake->id) }}" method="POST"
                                                     style="display:inline-block;">
                                                     @csrf
                                                     @method('DELETE')
@@ -878,7 +789,7 @@
                 <div class="flex items-center space-x-3">
                     <a href="#"
                         class="inline-flex items-center justify-center flex-1 px-3 py-2 text-sm font-medium text-center text-white rounded-lg bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">
-                        <svg class="w-5 h-5 mr-1 -ml-1" fill=" currentColor" viewBox="0 0 20 20"
+                        <svg class="w-5 h-5 mr-1 -ml-1"" fill=" currentColor" viewBox="0 0 20 20"
                             xmlns="http://www.w3.org/2000/svg">
                             <path fill-rule="evenodd"
                                 d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z"
