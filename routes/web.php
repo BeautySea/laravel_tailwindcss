@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PatientController;
 use App\Http\Controllers\IntakeController;
 use App\Http\Controllers\VisitController;
+use App\Http\Controllers\BillController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -34,5 +35,6 @@ Route::view('profile', 'profile')
 Route::resource('patients', PatientController::class);
 Route::resource('intakes', IntakeController::class);
 Route::resource('visits', VisitController::class);
+Route::resource('bills', BillController::class);
 
 require __DIR__.'/auth.php';
