@@ -8,8 +8,8 @@
         <div id="main-content" class="relative w-full h-full overflow-y-auto bg-gray-50 dark:bg-gray-900">
             <section class="my-8 bg-white dark:bg-gray-900">
                 <div class="w-full py-8 px-4 lg:py-16">
-                    <h2 class="mb-4 text-xl font-bold text-gray-900 dark:text-white text-center">Add a Patient</h2>
-                    <form action="{{ route('intakes.store') }}" method="POST">
+                    <h2 class="mb-4 text-xl font-bold text-gray-900 dark:text-white text-center">Add intake</h2>
+                    <form action="{{ route('intakes.store') }}" method="POST" id="intake_form">
                         @csrf
                         <div>
                             <div class="flex justify-center flex-wrap space-x-4">
@@ -137,13 +137,58 @@
                                 </div> -->
                             </div>
                         </div>
-                        <button type="submit"
+                        <!-- <button type="submit"
                             class="inline-flex justify-center items-center px-5 py-2.5 mt-4 sm:mt-6 text-sm font-medium text-center text-white bg-primary-700 rounded-lg focus:ring-4 focus:ring-primary-200 dark:focus:ring-primary-900 hover:bg-primary-800">
                             Create Intake
+                        </button> -->
+                        <a href="{{route('patients.create')}}"
+                            class="inline-flex justify-center items-center px-5 py-2.5 mt-4 sm:mt-6 text-sm font-medium text-center text-white bg-primary-700 rounded-lg focus:ring-4 focus:ring-primary-200 dark:focus:ring-primary-900 hover:bg-primary-800">
+                            Previous
+                        </a>
+                        <button onClick="save_next()"
+                            class="inline-flex justify-center items-center px-5 py-2.5 mt-4 sm:mt-6 text-sm font-medium text-center text-white bg-primary-700 rounded-lg focus:ring-4 focus:ring-primary-200 dark:focus:ring-primary-900 hover:bg-primary-800">
+                            Save and Next
                         </button>
                     </form>
                 </div>
             </section>
         </div>
     </div>
+    <script>
+        function save_next() {
+            event.preventDefault();
+            // Get the form data
+            const form = document.getElementById('intake_form');
+            const formData = new FormData(form);
+
+            // Convert FormData to JSON (optional)
+            const formDataObj = {};
+            formData.forEach((value, key) => {
+                formDataObj[key] = value;
+            });
+
+            console.log('Form Data:', formDataObj);
+
+            // Now you can send the form data using fetch (AJAX request)
+            fetch('/create_intake_next', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content') // Laravel CSRF token
+                },
+                body: JSON.stringify(formDataObj)
+            })
+                .then(response => response.json())
+                .then(data => {
+                    console.log('Success:', data);
+                    // Handle success or update the UI
+                })
+                .then(
+                    location.href="{{route('visits.create')}}"
+                )
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+        }
+    </script>
 </x-app-layout>

@@ -37,4 +37,9 @@ Route::resource('intakes', IntakeController::class);
 Route::resource('visits', VisitController::class);
 Route::resource('bills', BillController::class);
 
+Route::post('/create_patient_next', [PatientController::class, 'store_and_next']);
+Route::post('/create_intake_next', [IntakeController::class, 'store_and_next']);
+Route::post('/create_visit_next', [VisitController::class, 'store_and_next']);
+Route::post('/create_bill_next', [BillController::class, 'store_and_next']);
+
 require __DIR__.'/auth.php';

@@ -42,7 +42,14 @@ class PatientController extends Controller
         return redirect()->route('patients.index')
                          ->with('success', 'Patient created successfully.');
     }
-
+    public function store_and_next(Request $request) {
+        // $user = User::create($validatedData);
+        Patient::create($request->all());
+        // Return a JSON response
+        return response()->json([
+            'message' => 'Form submitted successfully!',
+        ], 200);
+    }
     /**
      * Display the specified resource.
      */

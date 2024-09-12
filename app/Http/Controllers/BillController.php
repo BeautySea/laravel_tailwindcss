@@ -37,7 +37,14 @@ class BillController extends Controller
         return redirect()->route('bills.index')
                          ->with('success', 'Patient created successfully.');
     }
-
+    public function store_and_next(Request $request) {
+        // $user = User::create($validatedData);
+        bill::create($request->all());
+        // Return a JSON response
+        return response()->json([
+            'message' => 'Form submitted successfully!',
+        ], 200);
+    }
     /**
      * Display the specified resource.
      */
